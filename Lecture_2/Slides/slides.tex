@@ -105,6 +105,10 @@
 
 	\includegraphics[width=.75\textwidth]{flow_on_the_line}
 
+	\bigskip
+
+	Phase line of the first-order dynamical system considered.
+
 	\vspace{1cm}
 \end{frame}
 
@@ -191,6 +195,9 @@
 
 	\includegraphics[width=.75\textwidth]{flow_on_the_line}
 
+		\bigskip
+
+		Phase line of the first-order dynamical system considered.
 	\vspace{1cm}
 \end{frame}
 
@@ -198,6 +205,20 @@
 	\centering
 
 		\includegraphics[width=.75\textwidth]{flow_on_the_line_bis}
+
+		\bigskip
+
+		Evolution of $x(t)$ for the initial condition $x_0 = 10^{-6}$.
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{First-order systems}{}
+
+	\centering
+	\begin{block}{\centering \textbf{Warning!}}
+		For a first-order system, the trajectories can only vary monotonically: either they end up on a stable fixed point, or they diverge to $\pm \infty$.
+	\end{block}
 
 	\vspace{1cm}
 \end{frame}
@@ -250,7 +271,26 @@
 \end{frame}
 
 \begin{frame}[t, c]{Newton-Raphson method}{$f : \mathbb{R} \to \mathbb{R}$}
+	\begin{itemize}
+		\item Originally proposed by Isaac Newton (1645--1727) and Joseph Raphson (1648 -- 1715) to solve
+		$$f(x) = 0.$$
 
+		\medskip
+
+		\item Given an initial guess $x_0$, the idea is to approximate $f(x)$ by its first-order Taylor expansion around $x_0$, i.e.\
+		$$
+		f(x) \simeq f(x_0) + f^{\prime}(x_0) ( x - x_0).
+		$$
+
+		\medskip
+
+		\item A better estimate $x_1$ of the root of $f$ can then be obtained by solving
+		$$
+		0 = f(x_0) + f^{\prime}(x_0) ( x_1 - x_0).
+		$$
+	\end{itemize}
+
+	\vspace{1cm}
 \end{frame}
 
 \begin{frame}[t, c]{Newton-Raphson method}{$f : \mathbb{R} \to \mathbb{R}$}
@@ -262,7 +302,7 @@
 
 		\bigskip
 
-		\item Iteration stops when a user-defined criterion is fulfilled, usually
+		\item The iterative procedure stops when a user-defined criterion is fulfilled, usually
 		$$
 		\| f(x_k) \| \le \epsilon \text{ or } \| x_{k+1} - x_k \| \le \epsilon,
 		$$
@@ -280,7 +320,7 @@
 
 	\bigskip
 
-	Illustration of the Newton-Raphson for $f(x) = x^3 - 2x - 5$.
+	Illustration of the Newton-Raphson for $f(x) = x^3 - 2x - 5$ and $x_0=3.8$.
 
 	\vspace{1cm}
 \end{frame}
@@ -307,10 +347,6 @@
 	\vspace{1cm}
 \end{frame}
 
-\begin{frame}[t, c]{Newton-Raphson method}{${\bm f} : \mathbb{R}^n \to \mathbb{R}^n$}
-
-\end{frame}
-
 \begin{frame}[t, c]{Newton-Raphson method}{Limitations}
 	\begin{itemize}
 		\item Although efficient, Newton-Raphson method suffers from a number of limitations:
@@ -326,6 +362,23 @@
 	\end{itemize}
 
 	\vspace{1cm}
+\end{frame}
+
+
+\begin{frame}[t, c]{}
+	\centering
+	\vspace{1cm}
+
+	{\Large \textbf{Second-order systems}}
+
+	\bigskip
+
+	{\textgre{\textbf{Back to our example}}}
+
+\end{frame}
+
+\begin{frame}[t, c]{}{}
+
 \end{frame}
 
 \end{document}
