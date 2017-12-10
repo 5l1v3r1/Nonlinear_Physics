@@ -29,6 +29,8 @@
 \setbeamertemplate{blocks}[rounded][shadow=true]
 
 
+\DeclareMathOperator{\trace}{tr}
+
 %-------------------------------------------------------------------------------
 %                                TITLE PAGE
 %-------------------------------------------------------------------------------
@@ -634,5 +636,82 @@
 
 	\vspace{1cm}
 \end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Different types of fixed points}
+	\begin{itemize}
+		\item Depending on the eigenspectrum of ${\bm L}$, the perturbation may exhibits different kind of dynamics.
+
+		\bigskip
+
+		\item One can thus classify the type of fixed points and the typical trajectory exhibited by the system in the vicinity of said fixed point solely based on the eigenvalues of the associated Jacobian matrix ${\bm L}$.
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Fixed point n\textsuperscript{o}1}
+		\begin{minipage}{.48\textwidth}
+			\centering
+			\includegraphics[width=.75\textwidth]{fixed_points_1}
+		\end{minipage}%
+		\hfill
+		\begin{minipage}{.48\textwidth}
+			\begin{itemize}
+				\item The first fixed point is given by
+				$${\bm x}^* = \begin{bmatrix} -0.798 & -1.449 \end{bmatrix}^T$$
+
+				\bigskip
+
+				\item The corresponding Jacobian matrix reads
+				$${\bm J} = \begin{bmatrix} -1.03 & 1.78 \\ 0.91 & 0.2 \end{bmatrix}$$
+			\end{itemize}
+		\end{minipage}
+
+		\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Fixed point n\textsuperscript{o}1}
+		\begin{minipage}{.48\textwidth}
+
+		\end{minipage}%
+		\hfill
+		\begin{minipage}{.48\textwidth}
+			\centering
+			\includegraphics[width=.75\textwidth]{fixed_points_1_bis}
+		\end{minipage}
+
+		\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Classifying the fixed points}
+	\begin{itemize}
+		\item For a $2 \times 2$ matrix, its eigenvalues are solution of
+		$$\lambda^2 - \trace({\bm L}) \lambda + \det({\bm L}) = 0,$$
+		where $\trace({\bm L}) = l_{11} + l_{22}$ and $\det({\bm L}) = l_{11}l_{22} - l_{21}l_{12}$.
+
+		\bigskip
+
+		\item All the different types of fixed points can be placed onto a $\trace({\bm L})$--$\det({\bm L})$ diagram.
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Classifying the fixed points}
+
+\end{frame}
+
+\begin{frame}[t, c]{}
+	\centering
+	\vspace{1cm}
+
+	{\Large \textbf{Attractors}}
+
+	\bigskip
+
+	{\textgre{\textbf{Giving structure to the phase space}}}
+
+\end{frame}
+
 
 \end{document}
