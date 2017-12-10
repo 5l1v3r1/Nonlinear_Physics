@@ -274,6 +274,34 @@
 	\vspace{1cm}
 \end{frame}
 
+\begin{frame}[t, c]{Second-order systems}{Phase plane and isoclines}
+	\centering
+
+	\includegraphics[width=.75\textwidth]{phase_plane_and_isoclines}
+
+	Phase plane and isoclines (i.e. $\dot{x} = 0$ and $\dot{y} = 0$) of the system considered.
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Phase plane and isoclines}
+	\begin{itemize}
+		\item For a second-order system, phase plane and isoclines are fairly easy to plot and provide valuable insights into the dynamics of the system.
+		\begin{itemize}
+			\item[$\hookrightarrow$] Phase plane : general overview of the dynamics of the system.
+
+			\item[$\hookrightarrow$] Direct visualization of the stable and unstable fixed point of the system.
+		\end{itemize}
+	\end{itemize}
+
+	\bigskip
+
+	\begin{block}{\centering \textbf{Question}}
+		\centering
+		How to compute these fixed points?
+	\end{block}
+\end{frame}
+
 \begin{frame}[t, c]{}
 	\centering
 	\vspace{1cm}
@@ -411,8 +439,200 @@
 
 \end{frame}
 
-\begin{frame}[t, c]{}{}
+\begin{frame}[t, c]{Second-order systems}{Fixed point computation}
+	\begin{itemize}
+		\item Visual inspection of the isoclines has revealed that the system exhibits six different fixed points.
 
+		\bigskip
+
+		\item In the rest, we will use the Newton-Raphson method to compute these different fixed points.
+
+		\bigskip
+
+		\item The state-dependent Jacobian matrix required for Newton method reads
+		\begin{equation}
+			{\bm J} = \begin{bmatrix}
+									1 + 1.4y & -2 y + 1.4 x \\
+									-1 + 3 x^2 & 0.2
+								\end{bmatrix}
+			\notag
+		\end{equation}
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Fixed point computation}
+
+\end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Infinitesimal perturbations}
+	\begin{itemize}
+		\item The dynamics of an infinitesimal perturbation ${\bm q}$ evolving in the vicinity of a given fixed point ${\bm x}^*$ is given by
+		$$\dot{\bm q} = {\bm L}{\bm q},$$
+		where ${\bm L}$ is the Jacobian matrix of the system evaluated at ${\bm x} = {\bm x}^*$.
+
+		\bigskip
+
+		\item The analytical solution to this \alert{\textbf{linear time-invariant dynamical system}} is given by
+		$${\bm q}(t) = e^{{\bm L}t}{\bm q}_0,$$
+		where ${\bm q}_0$ is the initial condition.
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{}
+	\centering
+	\vspace{1cm}
+
+	{\Large \textbf{Interlude}}
+
+	\bigskip
+
+	{\textgre{\textbf{Some elements of linear algebra}}}
+
+\end{frame}
+
+\begin{frame}[t, c]{Some elements of linear algebra}{Matrix decompositions}
+	Stewart (\emph{Comput. Sci. Engrg.}, \textbf{2}:50--59, 2000) has listed the \emph{big six matrix decompositions}:
+
+
+	\begin{enumerate}
+		\item Cholesky decomposition,
+		\item Pivoted LU decomposition,
+		\item QR decomposition,
+		\item Spectral decomposition, also known as \alert{\textbf{Eigendecomposition}},
+		\item Schur decomposition,
+		\item Singular Value decomposition.
+	\end{enumerate}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Some elements of linear algebra}{Eigendecomposition of a matrix}
+	\begin{itemize}
+		\item Eigendecomposition is the factorization of a matrix into its canonical form.
+		\begin{itemize}
+			\item[$\hookrightarrow$] The matrix is represented in terms of its \alert{\textbf{eigenvalues}} and \alert{\textbf{eigenvectors}}.
+		\end{itemize}
+
+		\bigskip
+
+		\item Given a $n \times n$ (i.e.\ square) matrix ${\bm L}$, eigendecomposition aims to rewrite it as
+		$${\bm L} = {\bm V} {\boldsymbol \Lambda}{\bm V}^{-1},$$
+		where ${\boldsymbol \Lambda}$ is the diagonal matrix of \alert{\textbf{eigenvalues}} and ${\bm V}$ is a $n \times n$ matrix whose i\textsuperscript{th} column if the \alert{\textbf{eigenvector}} ${\bm v}_i$ associated to ${\boldsymbol \Lambda}_{ii} = \lambda_i$.
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Some elements of linear algebra}{Matrix exponential}
+
+	\begin{block}{\centering \textbf{Warning, unless the matix is diagonal,}}
+		\begin{equation}
+			\left( e^{\bm L} \right)_{ij} \neq e^{l_{ij}}
+			\notag
+		\end{equation}
+	\end{block}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Some elements of linear algebra}{Matrix exponential}
+	\begin{itemize}
+		\item The infinitie series Taylor expansion of the classical exponential function $f(x) = e^x$ is given by
+		$$f(x) = 1 + x + \displaystyle \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots$$
+
+		\bigskip
+
+		\item The same definition carries over for matrices.
+		$$e^{\bm L} = {\bm I} + {\bm L} + \displaystyle  \frac{{\bm L}^2}{2!} + \frac{{\bm L}^3}{3!} + \cdots,$$
+		where ${\bm I}$ is the identity matrix.
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Some elements of linear algebra}{Matrix exponential}
+	\begin{itemize}
+		\item Evaluating $e^{\bm L}$ by brute force is quite impractical and extremely expansive from a computational point of view.
+
+		\bigskip
+
+		\item Using the eigendecomposition of ${\bm L}$, the matrix exponential can be rewritten as
+		$$e^{\bm L} = {\bm V} e^{\boldsymbol \Lambda} {\bm V}^{-1},$$
+		where $e^{\boldsymbol \Lambda}$ can easily be evaluated as it is a diagonal matrix.
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Some elements of matrix algebra}{Matrix exponential}
+	\begin{equation}
+		\begin{aligned}
+			e^{\bm L} & = {\bm I} + {\bm L} + \displaystyle \frac{{\bm L}^2}{2!} + \frac{{\bm L}^3}{3!} + \cdots, \\
+			& = {\bm I} + {\bm V}{\boldsymbol \Lambda}{\bm V}^{-1} + \displaystyle \frac{{\bm V}{\boldsymbol \Lambda}{\bm V}^{-1}{\bm V}{\boldsymbol \Lambda}{\bm V}^{-1}}{2!} + \frac{{\bm V}{\boldsymbol \Lambda}{\bm V}^{-1}{\bm V}{\boldsymbol \Lambda}{\bm V}^{-1}{\bm V}{\boldsymbol \Lambda}{\bm V}^{-1}}{3!} + \cdots, \\
+			& = {\bm V}{\bm I}{\bm V}^{-1} + {\bm V}{\boldsymbol \Lambda}{\bm V}^{-1} + \displaystyle \frac{{\bm V}{\boldsymbol \Lambda}^2{\bm V}^{-1}}{2!} + \frac{{\bm V}{\boldsymbol \Lambda}^3{\bm V}^{-1}}{3!} + \cdots, \\
+			& = {\bm V} \left( {\bm I} + {\boldsymbol \Lambda} + \displaystyle \frac{{\boldsymbol \Lambda}^2}{2!} + \frac{{\boldsymbol \Lambda}^3}{3!} + \cdots \right){\bm V}^{-1}, \\
+			& = {\bm V} e^{\boldsymbol \Lambda} {\bm V}^{-1}.
+		\end{aligned}
+		\notag
+	\end{equation}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{}
+	\centering
+	\vspace{1cm}
+
+	{\Large \textbf{Second-order systems}}
+
+	\bigskip
+
+	{\textgre{\textbf{Back to our example}}}
+
+\end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Infinitesimal perturbations}
+	\begin{itemize}
+		\item The dynamics of an infinitesimal perturbation ${\bm q}$ evolving in the vicinity of a given fixed point ${\bm x}^*$ is given by
+		$$\dot{\bm q} = {\bm L}{\bm q},$$
+		where ${\bm L}$ is the Jacobian matrix of the system evaluated at ${\bm x} = {\bm x}^*$.
+
+		\bigskip
+
+		\item The analytical solution to this \alert{\textbf{linear time-invariant dynamical system}} is given by
+		$${\bm q}(t) = e^{{\bm L}t}{\bm q}_0,$$
+		where ${\bm q}_0$ is the initial condition.
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Linear instability}
+	\begin{itemize}
+		\item Assuming the eigenvalues of ${\bm L}$ have been sorted by decreasing real parts, it is clear that if
+
+		\begin{itemize}
+			\item[$\hookrightarrow$] $\Re(\lambda_1) > 0$, then $\lim_{t \to +\infty} e^{{\bm L} t} = + \infty$, i.e.\ there exist a perturbation ${\bm v}_1$ that \underline{growths} exponentially fast in time. The fixed point considered is said to be \alert{\textbf{linearly unstable}}.
+
+			\medskip
+
+			\item[$\hookrightarrow$] $\Re(\lambda_1) < 0$, then $\lim_{t \to +\infty} e^{{\bm L} t} = 0$, i.e. all perturbations \underline{decay} exponentially fast in time. The fixed point considered is said to be \alert{\textbf{linearly stable}}.
+
+		\end{itemize}
+
+		\bigskip
+
+		\item The case $\Re(\lambda_1)$ is peculiar. The fixed point is said to be \alert{\textbf{marginally stable}} and one needs to consider the actual nonlinear system in order to conclude.
+		\begin{itemize}
+			\item[$\hookrightarrow$] Weakly nonlinear analysis is beyond the scope of this lesson and will be addressed later on.
+		\end{itemize}
+	\end{itemize}
+
+	\vspace{1cm}
 \end{frame}
 
 \end{document}
