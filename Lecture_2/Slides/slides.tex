@@ -464,10 +464,6 @@
 	\vspace{1cm}
 \end{frame}
 
-\begin{frame}[t, c]{Second-order systems}{Fixed point computation}
-
-\end{frame}
-
 \begin{frame}[t, c]{Second-order systems}{Infinitesimal perturbations}
 	\begin{itemize}
 		\item The dynamics of an infinitesimal perturbation ${\bm q}$ evolving in the vicinity of a given fixed point ${\bm x}^*$ is given by
@@ -653,6 +649,8 @@
 		\begin{minipage}{.48\textwidth}
 			\centering
 			\includegraphics[width=.75\textwidth]{fixed_points_1}
+
+			{\small Phase plane of the nonlinear system considered.}
 		\end{minipage}%
 		\hfill
 		\begin{minipage}{.48\textwidth}
@@ -672,12 +670,69 @@
 
 \begin{frame}[t, c]{Second-order systems}{Fixed point n\textsuperscript{o}1}
 		\begin{minipage}{.48\textwidth}
+			\begin{itemize}
+				\item ${\bm J}$ has two reals eigenvalues of opposite sign:
+				$$\lambda_1 = 0.99 \text{ and } \lambda_2 = -1.83$$
 
+				\item Such a fixed point is called a \alert{\textbf{saddle}}.
+				\begin{itemize}
+					\item[$\hookrightarrow$] Its first eigendirection ${\bm v}_1$ is repulsive while its second, ${\bm v}_2$, is attractive.
+				\end{itemize}
+			\end{itemize}
 		\end{minipage}%
 		\hfill
 		\begin{minipage}{.48\textwidth}
 			\centering
 			\includegraphics[width=.75\textwidth]{fixed_points_1_bis}
+
+			{\small Trajectories in the vicinity of the fixed point ${\bm x}^*_1$.}
+		\end{minipage}
+
+		\vspace{1cm}
+\end{frame}
+
+
+\begin{frame}[t, c]{Second-order systems}{Fixed point n\textsuperscript{o}2}
+		\begin{minipage}{.48\textwidth}
+			\centering
+			\includegraphics[width=.75\textwidth]{fixed_points_2}
+
+			{\small Phase plane of the nonlinear system considered.}
+		\end{minipage}%
+		\hfill
+		\begin{minipage}{.48\textwidth}
+			\begin{itemize}
+				\item The first fixed point is given by
+				$${\bm x}^* = \begin{bmatrix} -0.26 & -1.2 \end{bmatrix}^T$$
+
+				\bigskip
+
+				\item The corresponding Jacobian matrix reads
+				$${\bm J} = \begin{bmatrix} -0.69 & 2.05 \\ -0.79 & 0.2 \end{bmatrix}$$
+			\end{itemize}
+		\end{minipage}
+
+		\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Second-order systems}{Fixed point n\textsuperscript{o}2}
+		\begin{minipage}{.48\textwidth}
+			\begin{itemize}
+				\item ${\bm J}$ has complex conjugate eigenvalues:
+				$$\lambda_{1, 2} = -0.24 \pm 1.2 i$$
+
+				\item Such a fixed point is called a \alert{\textbf{spiral}}.
+				\begin{itemize}
+					\item[$\hookrightarrow$] In this case, $\Re(\lambda)<0$, so it is a spiral sink.
+				\end{itemize}
+			\end{itemize}
+		\end{minipage}%
+		\hfill
+		\begin{minipage}{.48\textwidth}
+			\centering
+			\includegraphics[width=.75\textwidth]{fixed_points_2_bis}
+
+			{\small Trajectories in the vicinity of the fixed point ${\bm x}^*_1$.}
 		\end{minipage}
 
 		\vspace{1cm}
@@ -698,20 +753,10 @@
 \end{frame}
 
 \begin{frame}[t, c]{Second-order systems}{Classifying the fixed points}
-
-\end{frame}
-
-\begin{frame}[t, c]{}
+	\vspace{-0.5cm}
 	\centering
-	\vspace{1cm}
-
-	{\Large \textbf{Attractors}}
-
-	\bigskip
-
-	{\textgre{\textbf{Giving structure to the phase space}}}
+	\includegraphics[height=.8\textheight]{fixed_points_classification}
 
 \end{frame}
-
 
 \end{document}

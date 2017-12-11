@@ -96,7 +96,7 @@ if __name__ == '__main__':
     xdot[:], ydot[:] = dynamical_system([x[:], y[:]])
 
     # --> First fixed points.
-    x0 = np.zeros((2,))
+    x0 = np.array([0., -1.])
     x1 = newton(x0)
 
     J = jacobian_matrix(x1)
@@ -105,8 +105,8 @@ if __name__ == '__main__':
     xdot_p, ydot_p = np.zeros_like(xdot), np.zeros_like(ydot)
     xdot_p[:], ydot_p[:] = LTI_system(J, [x[:], y[:]])
 
-    streamlines(x, y, xdot, ydot, x1[0], x1[1], savename='../imgs/fixed_points_1.pdf')
-    streamlines(x, y, xdot_p, ydot_p, 0, 0, savename='../imgs/fixed_points_1_bis.pdf')
+    streamlines(x, y, xdot, ydot, x1[0], x1[1], savename='../imgs/fixed_points_2.pdf')
+    streamlines(x, y, xdot_p, ydot_p, 0, 0, savename='../imgs/fixed_points_2_bis.pdf')
 
     print 'The first fixed point is given by :', x1
     print 'Its eigenvalues are :', eigenvalues
