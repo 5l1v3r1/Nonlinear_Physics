@@ -20,3 +20,9 @@
 *.snm
 
 Lecture_2/Notebook/\.ipynb_checkpoints/
+
+Lecture_1/Slides/\.DS_Store
+
+*.DS_Store
+
+Lecture_1/Slides/\._Abstract
