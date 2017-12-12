@@ -513,8 +513,8 @@ def summary():
     a0.set_xticks([], [])
     a0.set_yticks([], [])
 
-    a0.set_xlabel(r'$tr({\bf J})$')
-    a0.set_ylabel(r'$det({\bf J})$')
+    a0.set_xlabel(r'$\mathrm{tr}({\bf L})$')
+    a0.set_ylabel(r'$\det({\bf L})$')
 
     a0.set_ylim(-1, 1)
 
