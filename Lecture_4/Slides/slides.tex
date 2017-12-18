@@ -197,7 +197,44 @@
 \end{frame}
 
 \begin{frame}[t, c]{Saddle-node bifurcation}{Example from real life}
+	\begin{itemize}
+		\item Let us consider a damped pendulum driven by a constant torque
+		\begin{equation}
+			m L^2 \displaystyle \frac{\mathrm{d}^2 \theta}{\mathrm{d}t^2} + b \frac{\mathrm{d} \theta}{\mathrm{d}t} + mgL \sin (\theta) = \Gamma.
+			\notag
+		\end{equation}
 
+		\bigskip
+
+		\item Introducing the time scale $t = T \tau$, one can write
+		\begin{equation}
+			\displaystyle \frac{L}{gT^2} \ddot{\theta} + \frac{b}{mgL T} \dot{\theta} + \sin(\theta) = \frac{\Gamma}{mgL}.
+			\notag
+		\end{equation}
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Saddle-node bifurcation}{Example from real life}
+	\begin{itemize}
+		\item If $\nicefrac{b}{mgT} \gg \nicefrac{L}{gT^2}$, we can neglect $\ddot{\theta}$ and our equation becomes
+		\begin{equation}
+			\dot{\theta} = \gamma - \sin ( \theta ),
+			\notag
+		\end{equation}
+		with $T = \nicefrac{b}{mgL}$ and $\gamma = \nicefrac{\Gamma}{mgL}$.
+
+		\bigskip
+
+		\item You can now easily show that the system experiences a saddle-node bifurcation at $\gamma = 1$.
+
+		\bigskip
+
+		\item Interpret your results from physical point of view!
+	\end{itemize}
+
+	\vspace{1cm}
 \end{frame}
 
 \begin{frame}[t, c]{Transcritical bifurcation}{First-order dynamical system}
@@ -247,9 +284,9 @@
 	\vspace{1cm}
 \end{frame}
 
-\begin{frame}[t, c]{Transcritical bifurcation}{Example from real life}
-
-\end{frame}
+% \begin{frame}[t, c]{Transcritical bifurcation}{Example from real life}
+%
+% \end{frame}
 
 \begin{frame}[t, c]{Supercritical pitchfork bifurcation}{First-order dynamical system}
 	\begin{itemize}
@@ -343,9 +380,9 @@
 
 \end{frame}
 
-\begin{frame}[t, c]{Pitchfork bifurcation}{Example from real life}
-
-\end{frame}
+% \begin{frame}[t, c]{Pitchfork bifurcation}{Example from real life}
+%
+% \end{frame}
 
 \begin{frame}[t, c]{Bifurcations of first-order systems}{Summary}
 	\centering
@@ -480,24 +517,146 @@
 	\vspace{1cm}
 \end{frame}
 
-\begin{frame}[t, c]{Hopf bifurcation}{Example from real life}
+\begin{frame}[t, c]{Hopf bifurcation}{Normal form}
+	\begin{itemize}
+		\item The \alert{\textbf{normal form}} of the Hopf bifurcation reads
+		\begin{equation}
+			\begin{aligned}
+				\dot{r} & = \mu r \pm r^3 \\
+				\dot{\theta} & = \omega,
+			\end{aligned}
+			\notag
+		\end{equation}
+		where $r$ is the amplitude of oscillator and $\theta$ its phase.
+	\end{itemize}
 
-\end{frame}
-
-\begin{frame}[t, c]{}
-	\centering
 	\vspace{1cm}
-
-	{\Large \textbf{Global bifurcations}}
-
-	\bigskip
-
-	{\textgre{\textbf{Alternative creation of limit cycles}}}
-
 \end{frame}
 
-\begin{frame}[t, c]{Global bifurcations}{Global vs.\ local bifurcations}
+\begin{frame}[t, c]{Hopf bifurcation}{Example from real life}
+	\begin{minipage}{0.48\textwidth}
+		\begin{itemize}
+			\item The dynamics of the flow are governed by the Navier-Stokes equations
+			\begin{equation}
+				\begin{aligned}
+					\displaystyle \frac{\partial {\bm u}}{\partial t} + ({\bm u} \cdot \nabla ) {\bm u} & = - \nabla p + \frac{1}{Re}\nabla^2 {\bm u}\\
+					\nabla \cdot {\bm u} & = 0.
+				\end{aligned}
+				\notag
+			\end{equation}
 
+			\item These are partial differential equations having only a quadratic nonlinearity.
+
+		\end{itemize}
+	\end{minipage}%
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\begin{center}
+			\movie[width=\textwidth, autostart, loop]{\includegraphics[width=\textwidth]{figure_100}}{imgs/out.mp4}
+		\end{center}
+
+		{\small Evolution of the vorticity field for the fluidic pinball at $Re=60$.}
+	\end{minipage}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Hopf bifurcation}{Example from real life}
+	\begin{block}{\centering \textbf{Question}}
+		\centering
+		How come a system with quadratic nonlinearities exhibit a Hopf bifurcation whose normal form involve cubic ones?
+	\end{block}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Hopf bifurcation}{Example from real life}
+	\begin{minipage}{.6\textwidth}
+		These dynamics can be modeled by the following generalized mean-field model
+			\begin{equation}
+				\begin{aligned}
+					\dot{x} & = \sigma x - y - xz \\
+					\dot{y} & = x + \sigma y  - yz \\
+					\dot{z} & = - \lambda( z - x^2 - y^2 ).
+				\end{aligned}
+				\notag
+			\end{equation}
+		where $x$ and $y$ capture the vortex shedding and $z$ describes the \emph{mean flow distortion}.
+	\end{minipage}%
+	\hfill
+	\begin{minipage}{.28\textwidth}
+		\centering
+		\includegraphics[width=.95\textwidth]{generalized_mean_field_model}
+
+		{\small Trajectory given by the generalized mean field model.}
+	\end{minipage}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Hopf bifurcation}{Example from real life}
+	\begin{minipage}{.6\textwidth}
+		\begin{itemize}
+			\item Let us compute the two-dimensional unstable manifold. For that purpose, assume
+			\begin{equation}
+				\begin{aligned}
+					z & = h(x, y) \\
+					~ & = a x^2 + b xy + c y^2.
+				\end{aligned}
+				\notag
+			\end{equation}
+
+			\bigskip
+
+			\item After some calculations, we finally get
+			$$z = \displaystyle \frac{1}{2\sigma + 1} \left( x^2 + y^2 \right).$$
+			\begin{itemize}
+				\item[$\hookrightarrow$] If $\lambda \gg \sigma$, the system rapidly evolves onto this two-dimensional paraboloid manifold.
+			\end{itemize}
+		\end{itemize}
+	\end{minipage}%
+	\hfill
+	\begin{minipage}{.28\textwidth}
+		\centering
+		\includegraphics[width=.95\textwidth]{generalized_mean_field_model_manifold}
+
+		{\small Slice in the $y=0$ plane of the phase space.}
+	\end{minipage}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Hopf bifurcation}{Example from real life}
+	\begin{minipage}{.6\textwidth}
+		\begin{itemize}
+			\item Our dynamical system finally reduces to
+			\begin{equation}
+				\begin{aligned}
+					\dot{x} & = \sigma x - y - \alpha (x^2 + y^2)x \\
+					\dot{y} & = x + \sigma y - \alpha (x^2 - y^2)y.
+				\end{aligned}
+				\notag
+			\end{equation}
+
+			\medskip
+
+			\item Introducing $A = x + iy$, we finally arrive to the normal form of the supercritical Hopf bifurcation
+			$$\dot{A} = (\sigma + i)A - \alpha \vert A \vert^2 A.$$
+
+			\medskip
+
+			\item Though our system has only quadratic nonlinearities, dynamics on the manifold mimic cubic ones.
+		\end{itemize}
+	\end{minipage}%
+	\hfill
+	\begin{minipage}{.28\textwidth}
+		\centering
+		\includegraphics[width=.95\textwidth]{generalized_mean_field_model_2D}
+
+		{\small Trajectory of the system on the 2D manifold.}
+	\end{minipage}
+
+	\vspace{1cm}
 \end{frame}
 
 \end{document}
