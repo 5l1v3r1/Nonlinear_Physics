@@ -462,7 +462,10 @@
 \end{frame}
 
 \begin{frame}[t, c]{Saddle-node bifurcation revisited}{The reason it is called saddle-node}
+	\centering
+	\includegraphics[width=.75\textwidth]{saddle_node_phase_plane}
 
+	Phase plane of the system considered for varying $\mu$.
 \end{frame}
 
 \begin{frame}[t, c]{Hopf bifurcation}{Creation of limit cycles}
@@ -519,7 +522,7 @@
 
 \begin{frame}[t, c]{Hopf bifurcation}{Normal form}
 	\begin{itemize}
-		\item The \alert{\textbf{normal form}} of the Hopf bifurcation reads
+		\item The \alert{\textbf{normal form}} of the Hopf bifurcation (in polar coordinates) reads
 		\begin{equation}
 			\begin{aligned}
 				\dot{r} & = \mu r \pm r^3 \\
@@ -657,6 +660,84 @@
 	\end{minipage}
 
 	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{}
+	\centering
+	\vspace{1cm}
+
+	{\Large \textbf{Stability of bifurcations}}
+
+	\bigskip
+
+	{\textgre{\textbf{Perturbing the very structure of the model}}}
+
+\end{frame}
+
+\begin{frame}[t, c]{Unperturbed normal forms}{What we have seen so far.}
+	\centering
+	\begin{itemize}
+		\item So far, we have seen the following normal forms:
+		\begin{itemize}
+			\item[$\hookrightarrow$] Saddle-node :
+			$$\dot{x} = \mu - x^2$$
+
+			\item[$\hookrightarrow$] Transcritic :
+			$$\dot{x} = \mu x- x^2$$
+
+			\item[$\hookrightarrow$] Supercritical pitchfork :
+			$$\dot{x} = \mu x - x^3$$
+
+			\item[$\hookrightarrow$] Subcritical pitchfork :
+			$$\dot{x} = \mu x + x^3$$
+
+			\item[$\hookrightarrow$] Supercritical Hopf :
+			\begin{equation}
+				\begin{aligned}
+					\dot{x} & = \mu x - \omega y + \left(x^2 + y^2 \right) \left(\alpha x - \beta y \right) \\
+					\dot{y} & = \omega x + \mu y + \left(x^2 + y^2 \right) \left(\beta x + \alpha y \right).
+				\end{aligned}
+				\notag
+			\end{equation}
+		\end{itemize}
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{}{}
+
+	\begin{block}{\centering \textbf{Question}}
+		\centering
+		What if we now perturb the very structure of the model (i.e.\ add an $\epsilon$ term)?
+	\end{block}
+
+	\vspace{-1cm}
+\end{frame}
+
+
+\begin{frame}[t, c]{}{}
+
+	\begin{block}{\centering \textbf{Answer}}
+		\centering
+		This is your very first homework! It is due for early January.
+	\end{block}
+
+	\bigskip
+
+	\begin{itemize}
+		\item For each normal form, study the cases
+			\begin{multicols}{3}
+				\centering
+				\item[$\hookrightarrow$] $\epsilon < 0$,
+				\item[$\hookrightarrow$] $\epsilon = 0$,
+				\item[$\hookrightarrow$] $\epsilon > 0$.
+			\end{multicols}
+
+		\item Which type of bifurcations are \emph{structurally} stable and which are not?
+	\end{itemize}
+
+	\vspace{-1cm}
 \end{frame}
 
 \end{document}

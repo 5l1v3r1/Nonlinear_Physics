@@ -132,4 +132,62 @@ if __name__ == '__main__':
     ax[3].set_xlabel(r'$\mu$')
 
     plt.savefig('../imgs/saddle_node_bifurcation_diagrams.pdf', bbox_inches='tight', dpi=300)
+
+
+
+
+
+    #######################
+
+    def dynamical_sytem(x, t=None, mu=0.1):
+        # --> Initialize variable.
+        dx = np.zeros_like(x)
+
+        # --> x-equation
+        dx[0] = mu - x[0]**2
+
+        # --> y-equation
+        dx[1] = - x[1]
+
+        return dx
+
+    # --> Mesh of the phase plane.
+    x = np.linspace(-2, 2)
+    x, y = np.meshgrid(x, x)
+
+    # --> Range of parameters.
+    mu = np.array([-0.5, 0., 0.5])
+
+    fig, axes = plt.subplots(1, 3, figsize=(fig_width, fig_width/3))
+
+    for i, ax in enumerate(axes):
+        # --> Compute xdot and ydot.
+        xdot = np.zeros_like(x)
+        ydot = np.zeros_like(y)
+
+        xdot[:], ydot[:] = dynamical_sytem([x[:], y[:]], mu=mu[i])
+
+        magnitude = np.sqrt(xdot[:]**2 + ydot[:]**2)
+        ax.streamplot(x, y, xdot, ydot, color=magnitude, cmap=plt.cm.inferno, density=0.66, zorder=1)
+
+        ax.set_xlabel(r'$x$')
+        ax.set_aspect('equal')
+
+        if mu[i] > 0:
+            ax.plot(np.sqrt(mu[i]), 0, marker='o', color='royalblue', zorder=2)
+            ax.plot(-np.sqrt(mu[i]), 0, marker='o', color='royalblue', fillstyle='none', zorder=3, markeredgewidth=2)
+            ax.set_title(r'$\mu > 0$', y=-0.5)
+            ax.set_yticklabels([])
+
+        elif mu[i] == 0:
+            ax.plot(0, 0, marker='o', color='royalblue', fillstyle='right', zorder=2)
+            ax.set_title(r'$\mu = 0$', y=-0.5)
+            ax.set_yticklabels([])
+
+        else:
+            ax.set_ylabel(r'$y$')
+            ax.set_title(r'$\mu < 0$', y=-0.5)
+
+
+    plt.savefig('../imgs/saddle_node_phase_plane.pdf', bbox_inches='tight', dpi=300)
     plt.show()
