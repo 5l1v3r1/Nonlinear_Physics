@@ -242,4 +242,6 @@ if __name__ == '__main__':
     ax.set_ylabel(r'$\vert z_1 - z_2 \vert$')
 
     plt.savefig('../imgs/sensitivity_initial_conditions_bis.pdf', bbox_inches='tight', dpi=300)
+
+
     plt.show()
