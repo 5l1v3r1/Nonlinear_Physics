@@ -91,7 +91,7 @@ if __name__ == '__main__':
     ######################################################################
 
     # --> Setup the problem.
-    ks = KS(nx=2**8, t=np.linspace(0, 2000, 8000), lx=20*np.pi*np.sqrt(2))
+    ks = KS(nx=48, t=np.linspace(0, 2000, 8000), lx=20*np.pi)
 
     # --> Random initial condition.
     from numpy.random import random
@@ -109,5 +109,11 @@ if __name__ == '__main__':
     ax.set_ylim(-ks.lx/2, ks.lx/2)
     ax.set_xlabel(r'$t$')
     ax.set_ylabel(r'$x$')
+
+
+    fig = plt.figure(figsize=(w, w/3))
+    ax = fig.gca()
+
+    ax.loglog(ks.kx[ks.kx>0], abs(ks.u_hat[ks.kx>0]).mean(axis=1))
 
     plt.show()

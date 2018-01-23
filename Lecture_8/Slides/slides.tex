@@ -1,0 +1,888 @@
+%-------------------------------------------------------------------------------
+%                                PREAMBLE
+%-------------------------------------------------------------------------------
+\documentclass[usenames,dvipsnames,svgnames,10pt,aspectratio=169]{beamer}
+%
+% This theme uses TIKZ: compile twice with PDFLaTeX or LuaLaTeX.
+%
+%  Options:
+%  - [clean]:    clean slides, i.e. logos and footbar are removed
+%  - [kth]:      footbar style inspierd to the official KTH template
+%  - [nicewave]: a different style of wave is used (not approved by FLOW)
+%
+\usetheme{flow}
+
+\usepackage{hyperref,graphicx,lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{media9}
+\usepackage{xcolor}
+\usepackage{stmaryrd}
+\usepackage{nicefrac}
+\usepackage{multimedia}
+\usepackage{multicol}
+\usepackage{upgreek}
+% \usepackage[]{bm}
+\usepackage[]{url}
+
+\DeclareMathOperator*{\minimize}{minimize~}
+\DeclareMathOperator*{\subjecto}{subject~to~}
+\graphicspath{{imgs/}}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+
+\newcommand{\fullpageimage}[1]{
+\setbeamertemplate{background canvas}{\centering\includegraphics[width=
+\paperwidth,height=\paperheight]{{#1}}}
+\begin{frame}[plain]{}\end{frame}
+}
+
+%-------------------------------------------------------------------------------
+%                                TITLE PAGE
+%-------------------------------------------------------------------------------
+\title[s-R.O.M.] % Short title used in footline
+{
+	Overview of sparse system identification
+}
+
+\author[J.-Ch.~Loiseau] % Presenting author in short form used in footline
+{
+	\underline{J.-Ch. Loiseau}\textsuperscript{1} \& Others\textsuperscript{2, 3}
+}
+% - Give the names in the same order as the appear in the paper.
+% - Underline the presenting author.
+
+\institute[unused]
+{
+	\textsuperscript{1}Laboratoire DynFluid, Arts et M\'etiers ParisTech, France \\
+	\textsuperscript{2}LIMSI, Universit\'e d'Orsay -- CNRS, France \\
+	\textsuperscript{3}University of Washington, Seattle, USA
+}
+% Keep it simple, no one is interested in your street address.
+
+% University logo(s)
+\logot{\includegraphics[width=.128\paperwidth]{DynFluid_logo}}  % Top logo
+\logob{\includegraphics[width=0.064\paperwidth]{washington_logo}} % Bottom logo
+\logoc[{\includegraphics[width=.128\paperwidth]{limsi}}]{\includegraphics[width=.128\paperwidth]{limsi}} % Corner logo
+%
+% Cover image: \cvrimg{x position}{y position}{cover image}
+\cvrimg{.77}{.8}{\includegraphics[width=.4\paperwidth]{cover.png}}
+
+\date[unused]{European Workshop on R.O.M for Industrial Applications -- 16-17 October 2017}
+
+\begin{document}
+
+\titleframe % Print the title as the first slide
+
+%-------------------------------------------------------------------------------
+%                           PINBALLERS AND BACKGROUND SLIDES
+%-------------------------------------------------------------------------------
+
+\begin{frame}[c]{}
+	\centering
+	\includegraphics[width=\textwidth]{world_map_rnc.png}
+\end{frame}
+
+% \begin{frame}[t, c]{Background}
+% 	\centering
+% 	\begin{tabular}{lll}
+% 		Nov. 2010 - Mai 2014 & \textbf{PhD student} & \textgre{ENSAM, Paris} \\
+% 		~ & \multicolumn{2}{l}{Very large scale eigenvalue problems for hydrodynamics. \bigskip} \\
+% 		\hline
+% 		Sep. 2013 - Jui. 2014 & \textbf{Research Assistant} & \textgre{Universit\'e Lille-1} \\
+% 		~ & \multicolumn{2}{l}{Very large scale eigenvalue problems for hydrodynamics. \bigskip} \\
+% 		Jui.-D\'ec. 2014 & \textbf{Postdoc} & \textgre{Politecnico di Bari} \\
+% 		~ & \multicolumn{2}{l}{Linear and non-linear optimal perturbations. \bigskip} \\
+% 		F\'ev. 2015 - Sep. 2016 & \textbf{Postdoc} & \textgre{Kungliga Tekniska H\"ogskolan} \\
+% 		~ & \multicolumn{2}{l}{Dynamics and instabilities in multiphase flows. \bigskip} \\
+% 		\hline
+% 		Sep. 2016 - Today & \textbf{Assistant Professor} & \textgre{ENSAM, Paris} \\
+% 		~ & \multicolumn{2}{l}{Sparse reduced-order modeling and nonlinear flow control.}
+% 	\end{tabular}
+% \end{frame}
+
+%-------------------------------------------------------------------------------
+%                           INTRODUCTION SLIDES
+%-------------------------------------------------------------------------------
+
+\begin{frame}[t, c]{Overview}{What is reduced-order modeling?}
+	\centering
+
+	\begin{quote}
+		Reduced-order modeling (R.O.M) is a technique for \underline{reducing the computational complexity} of mathematical models in numerical simulations. By reducing the state space's dimension, an approximation of the original model is computed. This R.O.M can then be evaluated with lower accuracy but in \underline{significantly less time}.
+		\\
+		\begin{flushright}Wikipedia\end{flushright}
+	\end{quote}
+
+\end{frame}
+
+\begin{frame}[t, c]{Overview}{Step 1 : Data Acquisition}
+	\centering
+
+	\vspace{-.25cm}
+
+	\movie[height=.5\textheight, autostart, loop]{\includegraphics[height=.47\textheight]{vorticity_snapshot_5}}{imgs/cavity.mp4}
+
+	\vspace{0.5cm}
+
+	\begin{tabular}{ll}
+		\textbf{Examples:} & Direct Numerical Simulation (DNS), Large Eddy Simulation (LES), \\
+		~                  & Time-resolved PIV visualizations, ...
+	\end{tabular}
+
+\end{frame}
+
+\begin{frame}[t, c]{Overview}{Step 2 : Dimensionality reduction}
+	\centering
+	\begin{columns}
+		\begin{column}{.33\textwidth}
+			\centering
+			\includegraphics[width=\columnwidth]{dimensionality_reduction}
+		\end{column}
+		\begin{column}{.4\textwidth}
+			\centering
+			\includegraphics[width=\columnwidth]{svd}
+		\end{column}
+	\end{columns}
+
+	\bigskip
+
+	\begin{tabular}{ll}
+		\textbf{Examples:} & Fourier Mode Decomposition, Proper Orthogonal Decomposition (POD), \\
+		~                  & Dynamic and Koopman Mode Decomposition (DMD), Resolvent modes, ...
+	\end{tabular}
+\end{frame}
+
+\begin{frame}[t, c]{Overview}{Step 3 : Galerkin projection}
+	The governing equations of the high-dimensional system read
+	\begin{equation}
+		\displaystyle \frac{\mathrm{d}}{\mathrm{d}t} {\bf Q} = {\bf LQ} + \mathcal{N}({\bf Q})
+		\notag
+	\end{equation}
+
+	Assuming ${\bf Q}({\bf x}, t) \simeq {\bf U}({\bf x}){\bf a}(t)$, a reduced-order model governing the evolution of ${\bf a}(t)$ can be obtained by \emph{Galerkin projection}
+	\begin{equation}
+		\displaystyle {\bf U}^T{\bf U}\frac{\mathrm{d}}{\mathrm{d}t}{\bf a} = {\bf U}^T {\bf LUa} + {\bf U}^T \mathcal{N}({\bf Ua})
+		\notag
+	\end{equation}
+
+	which can be rewritten as
+	\begin{equation}
+		\displaystyle {\bf M}\frac{\mathrm{d}}{\mathrm{d}t}{\bf a} =  \widehat{\bf L}{\bf a} + \widehat{\mathcal{N}}({\bf a}).
+		\notag
+	\end{equation}
+\end{frame}
+
+%-------------------------------------------------------------------------------
+%                           POD-GALERKIN SHEAR-DRIVEN ROM SLIDES
+%-------------------------------------------------------------------------------
+
+\begin{frame}[t, c]
+	\centering
+	\vspace{1cm}
+	{\Large \textbf{Illustration of POD-Galerkin R.O.M.}}	 \\
+	\medskip
+	{\large Application to the shear-driven cavity flow}
+\end{frame}
+
+\begin{frame}[t, c]{POD-Galerkin R.O.M.}{Application to the shear-driven cavity flow}
+	\begin{columns}
+		\begin{column}{.45\textwidth}
+			\begin{center}
+				\includegraphics[width=\textwidth]{shear-driven-cavity}
+			\end{center}
+			\textbf{Figure:} Instantaneous vorticity colormap at $Re=7500$ (based on cavity's depth).
+		\end{column}
+		\begin{column}{.55\textwidth}
+			Two-dimensional shear-driven cavity flow is becoming a standard benchmark in fluid dynamics.
+			\medskip
+			\begin{itemize}
+				\item Non-trivial sequence of bifurcations as $Re \nearrow$.
+				\medskip
+				\item Multiple length scales and time scales phenomena.
+				\medskip
+				\item Practical applications in aeronautics.
+			\end{itemize}
+			\vspace{1cm}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[t, c]{POD-Galerkin R.O.M.}{Application to the shear-driven cavity flow}
+	\centering
+	\includegraphics[width=.75\textwidth]{energy_psd}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{POD-Galerkin R.O.M.}{Proper Orthogonal Decomposition}
+	\begin{columns}
+		\begin{column}{.5\textwidth}
+			\begin{itemize}
+				\item POD can be formulated as an SVD.
+				\bigskip
+				\item Key advantage of SVD is its quantification of the truncation error.
+				\bigskip
+				\item Flow fields can be reconstructed with an accuracy~$\ge$~90\% using only the first 6 POD modes.
+			\end{itemize}
+			\vspace{1cm}
+		\end{column}
+		\begin{column}{.5\textwidth}
+			\centering
+			\includegraphics[width=.66\columnwidth]{svd_explained_variance}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[t, c]{POD-Galerkin R.O.M.}{Proper Orthogonal Decomposition}
+	\centering
+	\begin{tabular}{cc}
+		\includegraphics[width=.4\textwidth]{PCA_mode_0} & \includegraphics[width=.4\textwidth]{PCA_mode_1} \\
+		\includegraphics[width=.4\textwidth]{PCA_mode_2} & \includegraphics[width=.4\textwidth]{PCA_mode_3}
+	\end{tabular}
+\end{frame}
+
+\begin{frame}[t, c]{POD-Galerkin R.O.M.}{Proper Orthogonal Decomposition}
+	\begin{columns}
+		\begin{column}{.5\textwidth}
+			\centering
+			\begin{tabular}{c}
+				\includegraphics[width=.8\textwidth]{PCA_mode_4} \\
+				\includegraphics[width=.8\textwidth]{PCA_mode_5}
+			\end{tabular}
+		\end{column}
+		\begin{column}{.5\textwidth}
+			POD analysis reveals the low-rank structure of the dynamics.
+			\medskip
+			\begin{itemize}
+				\item Modes 1 to 4 capture the coherent structures along the shear layer.
+				\medskip
+				\item Modes 5 and 6 capture the inner-cavity coherent structures.
+			\end{itemize}
+			\vspace{1cm}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[t, c]{POD-Galerkin R.O.M.}{Running the R.O.M}
+	\begin{columns}
+		\begin{column}{.5\textwidth}
+			\centering
+			\includegraphics[width=.9\textwidth]{galerkin_projection_chronos}
+
+			(a)
+		\end{column}
+		\begin{column}{.5\textwidth}
+			\centering
+			\includegraphics[width=.9\textwidth]{galerkin_projection_chronos_bis} \\
+
+			(b)
+		\end{column}
+
+	\end{columns}
+
+	\bigskip
+
+	\textbf{Figure :} (a) Short-time and (b) Long-time evolution of the amplitudes of the leading POD modes predicted by the POD-Galerkin projection R.O.M.
+
+	\vspace{0.5cm}
+\end{frame}
+
+\begin{frame}[t, c]{POD-Galerkin R.O.M.}{Summary}
+	\begin{itemize}
+		\item Despite the low-rank structure, a naive Galerkin projection leads to a R.O.M with limited prediction horizon.
+		\begin{itemize}
+			\item[$\hookrightarrow$] Including high-order modes (small scale structures) to properly capture the energy cascade does not necessarily improve the long-term behavior of the R.O.M.
+		\end{itemize}
+
+		\bigskip
+
+		\item Several techniques exist to overcome such problem. All of them however require deep knowledge of the physics of the problem and can be mathematically challenging.
+	\end{itemize}
+
+	\bigskip
+
+	\begin{block}{\center \textbf{Major limitation of Galerkin projection}}
+		\centering
+		The governing equations need to be known \emph{a priori}!
+	\end{block}
+
+	\vspace{1cm}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+%                           SPARSE SYSTEM IDENTIFICATION SLIDES
+%-------------------------------------------------------------------------------
+
+\begin{frame}[t, c]
+	\centering
+	\vspace{1cm}
+	{\Large \textbf{Sparse system identification}}
+\end{frame}
+
+\begin{frame}[t, c]{Overview}{What is system identification?}
+
+		\centering
+
+		\begin{quote}
+			The field of system identification uses statistical methods to build mathematical models of dynamical systems from measured data.
+			\\
+			\begin{flushright}Wikipedia\end{flushright}
+		\end{quote}
+
+		\bigskip
+
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+			\begin{block}{\centering \bf White-box}
+				\begin{itemize}
+					\item[$\hookrightarrow$] Knowing the model, estimate its parameters from data.\\
+					\vspace{.125cm}
+				\end{itemize}
+			\end{block}
+			\end{column}
+			\begin{column}{.3\textwidth}
+			\begin{block}{\centering \bf Gray-box}
+				\begin{itemize}
+					\item[$\hookrightarrow$] Given a generic model structure, estimate its parameters from data.
+				\end{itemize}
+			\end{block}
+			\end{column}
+			\begin{column}{.3\textwidth}
+			\begin{block}{\centering \bf Black-box}
+				\begin{itemize}
+					\item[$\hookrightarrow$] Determine the model structure and estimate its parameters from data.
+				\end{itemize}
+			\end{block}
+			\end{column}
+		\end{columns}
+
+\end{frame}
+
+\begin{frame}[t, c]{Overview}{What is \textbf{sparse} system identification?}
+
+		\centering
+
+		\begin{quote}
+			Non sunt multiplicanda entia sine necessitate
+			\\
+			\begin{flushright}William of Ockham\end{flushright}
+		\end{quote}
+
+		\vspace{1cm}
+
+		\begin{quote}
+			A model should be as simple as possible -- no simpler.
+			\\
+			\begin{flushright}A. Einstein\end{flushright}
+		\end{quote}
+
+\end{frame}
+
+\begin{frame}[t, c]{Overview}{Which techniques?}
+
+	Over the years, a large number of different techniques have been developed for the identification of nonlinear dynamical systems :
+
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item Volterra series,
+			\item Block-structured models,
+			\item Neural networks,
+			\item NARMAX models.
+		\end{itemize}
+	\end{multicols}
+
+	\bigskip
+
+	They all rely on the same four steps :
+	\begin{multicols}{2}
+		\begin{enumerate}
+			\item Data gathering,
+			\item Model postulate,
+			\item Parameters identification,
+			\item Model validation.
+		\end{enumerate}
+	\end{multicols}
+
+\end{frame}
+
+
+\begin{frame}[t, c]{SINDy}{Brunton \emph{et al.}, PNAS 2016}
+	\centering
+	\includegraphics[width=.75\textwidth]{sindy_paper}
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Overview}
+
+	\begin{columns}
+		\begin{column}{.33\textwidth}
+			\centering
+			\includegraphics[width=\columnwidth]{dimensionality_reduction}
+		\end{column}
+		\begin{column}{.4\textwidth}
+			\centering
+			\includegraphics[width=\columnwidth]{svd}
+		\end{column}
+	\end{columns}
+
+	\medskip
+
+	POD-Galerkin projection R.O.M uses $\boldsymbol{\Sigma}$ to select the projection basis ${\bf U}({\bf x})$, but entirely neglects the temporal information in ${\bf V}^H(t)$.
+
+	\vspace{1cm}
+
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Overview}
+	\centering
+	\includegraphics[width=.66\textwidth]{singular_chronos}
+
+	\textbf{Figure :} Time-evolution of the amplitude of the leading POD modes.
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Looking for \underline{nonlinear} correlations}
+
+	\begin{itemize}
+		\item POD modes are \underline{linearly} uncorrelated but can be \underline{nonlinearly} correlated.
+		\begin{itemize}
+			\item[$\hookrightarrow$] Possibility to further reduce the dimension of the R.O.M. if strong nonlinear correlations exist.
+		\end{itemize}
+	\end{itemize}
+
+	\begin{center}
+		\includegraphics[width=.7\textwidth]{pca_nonlinear_correlation}
+
+		\textbf{Figure :} Illustration of nonlinear correlation between $v_3$ and $v_5$ with $v_1$.
+	\end{center}
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Looking for \underline{nonlinear} correlations}
+	\centering
+
+	\emph{Randomized Dependence Coefficient} (RDC) is a new metric for nonlinear correlations.
+
+	\bigskip
+
+	\includegraphics[width=.66\textwidth]{linear_vs_nonlinear_correlations}
+
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Model postulate}
+	\begin{itemize}
+		\item \textbf{\alert{PCA}}: 6 modes are required to reconstruct the flow field to 95\% accuracy.
+		\bigskip
+		\item In practice, only four of these modes are required from a dynamical point of view. The remaining two are \emph{slaved} to these \emph{driving} modes.
+		\bigskip
+		\item The model we postulate reads
+		\begin{equation}
+			\begin{aligned}
+				\displaystyle \frac{\mathrm{d}{\bf a}}{\mathrm{d}t} & = f({\bf a}, {\bf b})\\
+				{\bf b} & = h({\bf a})
+			\end{aligned}
+			\notag
+		\end{equation}
+		where ${\bf a}$ is the amplitude of the \emph{driving} modes, ${\bf b}$ that of the \emph{slaved} ones, and $h({\bf a})$ is a manifold equation.
+	\end{itemize}
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Basis pursuit problem}
+	Given time-series of ${\bf a}$, construct a library of candidate (nonlinear) functions for the r.h.s
+
+	$$
+	{\Uptheta}({\bf a}) = \begin{bmatrix}
+											1 & {\bf a} & P_2({\bf a}) & \cdots & P_N({\bf a})
+										\end{bmatrix}
+	$$
+
+	\bigskip
+
+	The unknown system can be recast as
+
+	$$
+	\displaystyle \frac{\mathrm{d}{\bf a}}{\mathrm{d}t} = {\Uptheta}({\bf a}) {\boldsymbol \upxi}
+	$$
+
+	where ${\boldsymbol \upxi}$ is a sparse vector of coefficients determining which terms from the library $\Uptheta({\bf a})$ are actually active in $f\left({\bf a}, h({\bf a})\right)$.
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Basis pursuit problem}
+	The sparse vector can be identified by solving the following \underline{sparse regression} problem
+
+	\begin{equation}
+		\minimize_{\boldsymbol \xi} \overbrace{\| \dot{\bf a} - \Uptheta({\bf a}){\boldsymbol \xi} \|_2^2}^{\text{Least-Squares fit}} \quad + \underbrace{\lambda \| {\boldsymbol \xi} \|_1}_{\text{Sparsity promotion}}
+		\notag
+	\end{equation}
+
+	It is a convex optimization problem which can be solved very efficiently with standard open-source libraries.
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Overview}
+	\centering
+	\includegraphics[width=.66\columnwidth]{sparse_identification} \\
+
+	{\tiny Illustration of system identification using SINDy. From Brunton \emph{et al.}, PNAS, 2015.}
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Dynamical system}
+
+	\begin{itemize}
+		\item The Galerkin Regression model identified reads
+		\begin{equation}
+			\displaystyle \frac{\mathrm{d}{\bf a}}{\mathrm{d}t} = \mathcal{L}{\bf a} + \mathcal{Q}({\bf a}) + \mathcal{C}({\bf a}).
+			\notag
+		\end{equation}
+
+		\item $\mathcal{L}$ is a linear operator governing the linearized dynamics of the system around the mean flow.
+
+		\bigskip
+
+		\item $\mathcal{Q}({\bf a})$ describes the quadratic interactions between the \emph{driving} modes.
+
+		\bigskip
+
+		\item $\mathcal{C}({\bf a})$ is a cubic term describing the influence of \emph{slaved} (i.e. truncated) modes onto the \emph{driving} ones.
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Dynamical system}
+	\begin{itemize}
+		\item After some minor simplifications, the identified model can be recast as
+		\begin{equation}
+			\begin{aligned}
+				& \ddot{a}_1 + q(a_1) \dot{a}_1 + \omega_0^2 a_1 = f(a_1, a_3) \\
+				& \ddot{a}_3 + p(a_3) \dot{a}_3 + \omega_1^2 a_3 = g(a_1, a_3)
+			\end{aligned}
+			\notag
+		\end{equation}
+
+		\bigskip
+
+		\item Despite its apparent complexity, the flow can simply modeled as a set of two nonlinearly coupled quasi-harmonic oscillators.
+	\end{itemize}
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Manifold equations}
+
+	\begin{itemize}
+		\item The identified manifold equations read
+		\begin{equation}
+			\begin{aligned}
+				& b_1 = 0.58 (a_1^2 - a_2^2) + 0.71 a_1 a_2 \\
+				& b_2 = 0.35 (a_1^2 - a_2^2) - 1.16 a_1 a_2.
+			\end{aligned}
+			\notag
+		\end{equation}
+
+		\medskip
+
+		\item Although the evolutions of higher-harmonic shear-layer modes are \underline{linearly} uncorrelated to that of the dominant modes, these evolutions turn out to be strongly \underline{nonlinearly} correlated.
+	\end{itemize}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Comparisons}
+	\begin{columns}
+		\begin{column}{.5\textwidth}
+			\centering
+			\includegraphics[width=.9\textwidth]{galerkin_regression_chronos}
+
+			(a)
+		\end{column}
+		\begin{column}{.5\textwidth}
+			\centering
+			\includegraphics[width=.9\textwidth]{galerkin_regression_chronos_bis} \\
+
+			(b)
+		\end{column}
+
+	\end{columns}
+
+	\bigskip
+
+	\textbf{Figure :} (a) Short-time and (b) Long-time evolution of the amplitudes of the leading POD modes predicted by the POD-Galerkin regression R.O.M.
+
+	\vspace{0.5cm}
+\end{frame}
+
+\begin{frame}[t, c]{Galerkin Regression}{Comparisons}
+		\begin{columns}
+			\begin{column}{.5\textwidth}
+				\centering
+				\movie[height=.33\textheight, autostart, loop]{\includegraphics[height=.31\textheight]{vorticity_snapshot_5}}{imgs/cavity.mp4}
+
+				\bigskip
+
+				(a) Direct Numerical Simulation
+			\end{column}
+			\begin{column}{.5\textwidth}
+				\centering
+				\movie[height=.33\textheight, autostart, loop]{\includegraphics[height=.31\textheight]{vorticity_snapshot_5}}{imgs/cavity.mp4}
+
+				\bigskip
+
+				(b) Reduced-Order Model
+			\end{column}
+		\end{columns}
+\end{frame}
+
+
+\begin{frame}[t, c]{Galerkin Regression}{Summary}
+	\begin{itemize}
+		\item Reconstructing the flow field (kinematics) and modeling its dynamics are two different problems.
+		\bigskip
+		\item SINDy allows one to identify efficient and very low-dimensional R.O.M.
+		\begin{itemize}
+			\item[$\hookrightarrow$] Takes full advantage of possibly existing nonlinear correlations (manifold learning).
+			\item[$\hookrightarrow$] Lowest-dimensional description of the dynamics.
+		\end{itemize}
+		\bigskip
+		\item Not need prior knowledge of the high-dimensional governing equations! Yet, we easily identify a human-interpretable model.
+	\end{itemize}
+	\vspace{1cm}
+\end{frame}
+
+%-------------------------------------------------------------------------------
+%                           CONCLUSION SLIDES
+%-------------------------------------------------------------------------------
+
+\begin{frame}[t, c]
+	\centering
+	\vspace{1cm}
+	{\Large \textbf{Conclusions and perspectives}}
+\end{frame}
+
+\begin{frame}[t, c]{Conclusions and perspectives}{Additional examples of SINDy}
+	\centering
+
+	\begin{columns}
+		\begin{column}{.4\textwidth}
+			\centering
+			\includegraphics[width=.66\textwidth]{phase_plane_cylinder}
+		\end{column}
+		\begin{column}{.6\textwidth}
+			\begin{itemize}
+				\item Low-order model describing the saturation of globally unstable flows.
+				\bigskip
+				\begin{equation}
+					\displaystyle \frac{\mathrm{d}}{\mathrm{d}t} \begin{bmatrix} a_1 \\ a_2 \end{bmatrix}
+					=
+					\begin{bmatrix}
+						0 & \omega \\
+						-\omega & \sigma(1 - a_1^2 - a_2^2)
+					\end{bmatrix}
+				 	\begin{bmatrix} a_1 \\ a_2 \end{bmatrix}
+					\notag
+				\end{equation}
+			\end{itemize}
+			\vspace{0.5cm}
+		\end{column}
+	\end{columns}
+
+	\includegraphics[width=.8\textwidth]{figure_3}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Conclusions and perspectives}{Additional examples of SINDy}
+	\begin{columns}
+		\begin{column}{.45\textwidth}
+			\centering
+			\movie[height=.5\textheight, autostart, loop]{\includegraphics[height=.5\textheight]{buffet}}{imgs/Buffet.mp4} \\
+
+			{\small Illustration of buffet on an airfoil at $Re=4 \cdot 10^6$ and $Ma=0.73$ using a RANS solver}
+			\vspace{.25cm}
+		\end{column}
+		\begin{column}{.55\textwidth}
+			\begin{itemize}
+				\item Despite its complexity, the dynamics of the buffet can be modeled like that of the cylinder flow.
+				\medskip
+				\begin{equation}
+					\displaystyle \frac{\mathrm{d}}{\mathrm{d}t} \begin{bmatrix} a_1 \\ a_2 \end{bmatrix}
+					=
+					\begin{bmatrix}
+						0 & \omega \\
+						-\omega & \sigma(1 - a_1^2 - a_2^2)
+					\end{bmatrix}
+					\begin{bmatrix} a_1 \\ a_2 \end{bmatrix}
+					\notag
+				\end{equation}
+				\medskip
+				\item This link may significantly simplify the nonlinear control of this flow.
+			\end{itemize}
+			\vspace{1cm}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[t, c]{Conclusions and perspectives}{Additional examples of SINDy}
+	\begin{columns}
+		\begin{column}{.5\textwidth}
+			\centering
+			\includegraphics[width=.9\columnwidth]{snapshots_re120} \\
+			\medskip
+			\includegraphics[width=.9\columnwidth]{phase_space_RE60}
+		\end{column}
+		\begin{column}{.5\textwidth}
+			\begin{itemize}
+				\item Successfully applied to the \emph{Fluidic Pinball}.
+				\begin{itemize}
+					\item[$\hookrightarrow$] Benchmark for MIMO nonlinear flow control.
+					\item[$\hookrightarrow$] Open-Source platform (Octave or Python).
+				\end{itemize}
+
+				\vspace{1.5cm}
+
+				\item System ID applied directly to time-traces of the lift coefficients.
+				\begin{itemize}
+					\item[$\hookrightarrow$] Experimentally realistic R.O.M strategy.
+					\item[$\hookrightarrow$] Excellent descriptive capabilities.
+				\end{itemize}
+			\end{itemize}
+
+			\vspace{1cm}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[t, c]{Conclusions and perspectives}{Extension for control purposes}
+	\begin{columns}
+		\begin{column}{.6\textwidth}
+			\begin{itemize}
+				\item SINDy has been extended to identify low-order nonlinear models including control inputs
+				\begin{equation}
+					\begin{aligned}
+						\displaystyle \frac{\mathrm{d} {\bf a}}{\mathrm{d}t} & = f({\bf a}, {\bf b})\\
+						{\bf b} & = \mathcal{K}({\bf a})
+					\end{aligned}
+					\notag
+				\end{equation}
+				which can then be used for real-time control purposes (i.e. drag reduction, mixing enhancement, ...).
+
+					\bigskip
+
+				\item Current developments aim at interfacing SINDYc with Machine-Learning Control algorithms.
+			\end{itemize}
+		\end{column}
+		\begin{column}{.4\textwidth}
+			\centering
+			\includegraphics[height=.6\textheight]{mlc_book}
+		\end{column}
+	\end{columns}
+
+	\vspace{0.5cm}
+\end{frame}
+
+\begin{frame}[t, c]{Conclusions and perspectives}{Extension for varying parameters}
+	\begin{columns}
+		\begin{column}{.6\textwidth}
+			\begin{itemize}
+				\item SINDy can be naturally extended to identify parametrized systems
+				\begin{equation}
+					\displaystyle \frac{\mathrm{d}{\bf a}}{\mathrm{d}t} = f({\bf a}, {\boldsymbol \mu})
+					\notag
+				\end{equation}
+				where ${\boldsymbol \mu}$ is the vector of parameters.
+
+				\bigskip
+
+				\item Key challenge is to make sure that the meaning of $a_i$ does not change as ${\boldsymbol \mu}$ varies (i.e.\ no mode switching)
+			\end{itemize}
+			\vspace{1cm}
+		\end{column}
+		\begin{column}{.4\textwidth}
+			\centering
+			\includegraphics[width=.9\textwidth]{logistic_eq}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[t, c]{Conclusions and perspectives}{Extension for PDE identification}
+	\centering
+
+	\includegraphics[height=.75\textheight]{pde_find}
+
+	\vspace{2cm}
+\end{frame}
+
+\begin{frame}[t, c]{Conclusions and perspectives}{}
+	\begin{block}{\centering \textbf{Take-away Messages}}
+		\bigskip
+		\begin{itemize}
+			\item Sparse regression allows you to identify a low-order model of your system that include the influence of truncated modes.
+			\medskip
+			\item Look for nonlinear correlations in your data, not just linear ones!
+			\medskip
+			\item In all cases we have investigated, Galerkin Regression has outperformed Galerkin projection.
+		\end{itemize}
+	\end{block}
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[t, c]{Conclusions and perspectives}{Open questions}
+	A lot of material and technicalities have not been covered in this talk, including but not limited to:
+	\medskip
+	\begin{itemize}
+		\item Is POD really the best dimensionality reduction technique?
+		\smallskip
+		\item How large and diverse should the library $\Uptheta$ be for Galerkin Regression?
+		\smallskip
+		\item How to select the best model balancing parsimony and accuracy?
+		\smallskip
+		\item What about data contaminated with non-Gaussian/non-white noise?
+		\smallskip
+		\item How to quantify uncertainty of the model's estimated parameters?
+	\end{itemize}
+\end{frame}
+
+%-------------------------------------------------------------------------------
+%                           MISCELLANEOUS SLIDES
+%-------------------------------------------------------------------------------
+
+\begin{frame}[t, c]{Sparse reduced-order modeling}{If you want to know more}
+	\centering
+	\begin{minipage}{.9\textwidth}
+		\begin{columns}
+			\begin{column}{.2\textwidth}
+				\centering
+				\includegraphics[height=.15\textheight]{google}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				\url{http://www.sites.google.com/site/loiseaujc}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+
+	\bigskip
+
+	\begin{minipage}{.9\textwidth}
+		\begin{columns}
+			\begin{column}{.2\textwidth}
+				\centering
+				\includegraphics[height=.15\textheight]{github}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				\url{http://www.github.com/loiseaujc}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------
+
+\thanksframe \label{final-frame}
+
+
+\fullpageimage{questions_large}
+
+\end{document}
