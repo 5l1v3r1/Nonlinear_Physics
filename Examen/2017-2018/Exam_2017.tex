@@ -1,0 +1,355 @@
+\documentclass[12pt]{exam}
+\usepackage[utf8]{inputenc}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{multicol}
+\usepackage[]{graphicx}
+\usepackage[]{bm}
+\usepackage[]{nicefrac}
+
+\newcommand{\class}{Physique non-linéaire}
+\newcommand{\term}{Master 2}
+\newcommand{\examnum}{Examen final}
+\newcommand{\examdate}{Février 2017}
+\newcommand{\timelimit}{120 Minutes}
+
+\pagestyle{head}
+\firstpageheader{}{}{}
+\runningheader{\class}{\examnum\ - Page \thepage\ of \numpages}{\examdate}
+\runningheadrule
+
+
+\begin{document}
+
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+\textbf{\class} & \textbf{Nom -- Prénom:} & \makebox[2in]{\hrulefill}\\
+% \textbf{\term} &&\\
+\textbf{\examnum} &&\\
+\textbf{\examdate} &&\\
+% \textbf{Time Limit: \timelimit} & Teaching Assistant & \makebox[2in]{\hrulefill}
+\textbf{Durée: \timelimit} &&
+\end{tabular*}\\
+\rule[2ex]{\textwidth}{2pt}
+
+Ce sujet contient \numpages\ pages (en comptant la page de garde) et \numquestions\ exercices.\\
+Le nombre total de point est de \numpoints.
+
+\begin{center}
+  Barême\\
+  \bigskip
+  \addpoints
+  \gradetable[v][questions]
+\end{center}
+
+\noindent
+\rule[2ex]{\textwidth}{2pt}
+
+\begin{questions}
+
+\question[10] \textbf{Théorie de Koopman}
+\noaddpoints
+
+\medskip
+
+Soit le système dynamique non-linéaire suivant
+\begin{equation}
+  \begin{aligned}
+    \dot{x}_1 & = \mu x_1 \\
+    \dot{x}_2 & = \lambda \left( x_2 - x_1^4 + 2 x_1^2 \right),
+  \end{aligned}
+  \label{eq: exercise 1}
+\end{equation}
+avec $\mu < 0$ et $\lambda < 0$.
+
+
+\begin{parts}
+  % -----> Points fixes et stabilité linéaire.
+  \part[2] Calculez le(s) point(s) fixe(s) du système et étudiez leur stabilité linéaire.
+
+  % -----> Variété stable.
+  \part[4] Donnez l'expression des variétés stables du point fixe situé à l'origine et tracer un schéma de l'espace des phases ainsi que quelques trajectoires.
+
+  % -----> Théorie de Koopman.
+  \part[4] En introduisant de nouvelles variables, montrez que le système non-linéaire \eqref{eq: exercise 1} peut être ré-écrit sous la forme d'un système linéaire à 4 degrés de liberté.
+
+  % -----> Bonus
+  \part[5 bonus] Calculez les valeurs propres et vecteurs propres du système linéaire obtenu à la question précédente. Concluez quant aux fonctions propres de l'opérateur de Koopman.
+
+\end{parts}
+\addpoints
+
+\bigskip
+
+\question[10] \textbf{Bifurcation de Hopf}
+\noaddpoints
+
+\medskip
+
+Soit le système dynamique non-linéaire suivant
+\begin{equation}
+  \begin{aligned}
+    & \dot{x} = \sigma (1 -z) x - \omega y\\
+    & \dot{y} = \omega x + \sigma (1 -z) y \\
+    & \dot{z} = -\lambda(z - x^2 - y^2),
+  \end{aligned}
+  \label{eq: exercise 2}
+\end{equation}
+avec $\lambda > 0$ et $\omega > 0$.
+
+\begin{parts}
+  \part[1] Quel problème de mécanique des fluides ce système dynamique permet-il de modéliser? De quelles structures physiques $x$, $y$ et $z$ décrivent-ils l'évolution?
+
+  \part[3] Montrez que, pour $\sigma > 0$, le point fixe situé à l'origine possède une variété instable de dimension 2. Approximez son expression à l'aide d'un polynome du type
+  $$h(x, y) \simeq c_0 + c_1 x + c_2 y + c_3 x^2 + c_4 xy + c_5 y^2 + \cdots$$
+
+  \part[1] En introduisant $z \simeq h(x, y)$ dans le système \eqref{eq: exercise 2}, donnez les équations décrivant la dynamique temporelle de $x$ et $y$.
+
+  \part[5] En utilisant le changement de variable $x + i y = r e^{i \theta}$, montrez que le système subit une bifurcation de Hopf supercritique pour $\sigma=0$.
+\end{parts}
+\addpoints
+
+\bigskip
+
+\question[6] \textbf{Questions diverses}
+\noaddpoints
+
+\begin{parts}
+  \part[2] Soit le système de Lorenz
+  \begin{equation}
+    \begin{aligned}
+      & \dot{x} = \sigma ( y - x) \\
+      & \dot{y} = x(\rho -z) - y\\
+      & \dot{z} = xy - \beta z.
+    \end{aligned}
+  \end{equation}
+  Montrez que, pour $\sigma > 0$, $\rho > 0$ et $\beta > 0$, le système ne peut pas présenter de dynamique quasi-périodique (i.e.\ il n'existe pas d'attracteur prenant la forme d'un tore).
+
+  \part[2] Présentez simplement le principe de la cascade sous-harmonique, l'une des route pouvant conduire un système vers le chaos.
+
+  \part[2] Expliquez le principe de la \emph{POD} (Proper Orthogonal Decomposition). Dans quel cas de figure cette approche a-t'elle un réel intérêt pour réduire la dimensionalité du problème?
+\end{parts}
+\addpoints
+
+%
+% \question[15] \textbf{Least-squares}
+% \noaddpoints
+%
+% \medskip
+%
+% \begin{figure}
+%   \centering
+%   \includegraphics[scale=1]{double_pendulum.pdf}
+%   \caption{Evolution of $\theta_1$ and $\theta_2$ for an unknown set of parameters $(\alpha, \gamma, \delta)$.}
+%   \label{fig: double pendulum bis}
+% \end{figure}
+%
+% System identification is a particularly active area of research. In its simplest form, its aims is to infer the parameters of the equations governing the dynamics of the system under scrutiny solely based on measurements of its state vector. In this exercise, we will consider the same double pendulum system as before. Figure \ref{fig: double pendulum bis} depicts a typical time evolution of $\theta_1(t)$ and $\theta_2(t)$ for a given set of initial conditions and parameters $(\alpha, \beta, \gamma, \delta)$. Given these time series, the objective of this exercise is to determine by means of least-squares analysis the four coefficients that characterize the present double pendulum. In the rest of this exercise, we will assume for the sake of simplicity that the dynamics of the double pendulum system are given by
+% \begin{equation}
+%   \begin{aligned}
+%     \ddot{\theta}_1  & =  -\alpha \ddot{\theta}_2 - \gamma \theta_1 \\
+%     \ddot{\theta}_2 & = -\ddot{\theta}_1 - \delta \theta_2.
+%   \end{aligned}
+%   \label{eq: linearized double pendulum}
+% \end{equation}
+% These equations are linear in the parameters $(\alpha, \gamma, \delta)$. Given time series of $\theta_1$, $\theta_2$, $\ddot{\theta}_1$ and $\ddot{\theta}_2$, the equation for $\ddot{\theta}_1$ can be written as
+% \begin{equation}
+%   \begin{bmatrix}
+%     \ddot{\theta}_1(t_1) \\
+%     \ddot{\theta}_1(t_2) \\
+%     \ddot{\theta}_1(t_3) \\
+%     \ddot{\theta}_1(t_4) \\
+%     \ddot{\theta}_1(t_5) \\
+%     \ddot{\theta}_1(t_6)
+%   \end{bmatrix} = - \begin{bmatrix}
+%                       \ddot{\theta}_2(t_1) & \theta_1(t_1)\\
+%                       \ddot{\theta}_2(t_2) & \theta_1(t_2) \\
+%                       \ddot{\theta}_2(t_3) & \theta_1(t_3) \\
+%                       \ddot{\theta}_2(t_4) & \theta_1(t_4) \\
+%                       \ddot{\theta}_2(t_5) & \theta_1(t_5) \\
+%                       \ddot{\theta}_2(t_6) & \theta_1(t_6)
+%                     \end{bmatrix}
+%                     \begin{bmatrix}
+%                       \alpha \\
+%                       \gamma
+%                     \end{bmatrix}
+%                     \label{eq: least-squares one}
+% \end{equation}
+% where $\alpha$ and $\gamma$ are the two parameters one aims to infer from the measurements reported in table \ref{tab: least-squares}.
+%
+% \begin{table}
+%   \centering
+%   \begin{tabular}{c|cccccc}
+%     ~ & $t_1$ & $t_2$ & $t_3$ & $t_4$ & $t_5$ & $t_6$ \\
+%     \hline
+%     $\theta_1$ & $1.05$ & $0.81$ & $-0.55$ & $-0.25$ & $0.40$ & $-0.66$ \\
+%     $\theta_2$ & $1.60$ & $1.21$ & $-0.61$ & $-0.40$ & $0.79$ & $-0.71$ \\
+%     $\ddot{\theta}_1$ & $-0.51$ & $-0.41$ & $0.48$ & $0.09$ & $-0.015$ & $0.61$ \\
+%     $\ddot{\theta}_2$ & $-1.1$ & $-0.80$ & $0.12$ & $0.30$ & $-0.78$ & $0.1$
+%   \end{tabular}
+%   \caption{Values of $\theta_1$, $\theta_2$, $\ddot{\theta}_1$ and $\ddot{\theta}_2$ obtained experimentally at six instants of time.}
+%   \label{tab: least-squares}
+% \end{table}
+%
+% \begin{parts}
+%   \part[5] Using the measurements reported in table \ref{tab: least-squares}, solve equation \eqref{eq: least-squares one} for $\alpha$ and $\gamma$.
+%
+%   \part[5] Based on the equation governing the dynamics of $\ddot{\theta}_2$, write down the least-squares problem one needs to solve to infer the coefficient $\delta$ and solve it.
+%
+%   \part[5] Using the formula you have derived analytically in the previous exercise, estimate what the eigenfrequencies of the double pendulum are using the values of $\alpha$, $\gamma$ and $\delta$ you have inferred using least-squares. Looking at the evolution of $\theta_1$ and $\theta_2$ depicted on figure \ref{fig: double pendulum}, does this estimate seem reasonable?
+%
+% \end{parts}
+% \addpoints
+%
+% \bigskip
+%
+% \question[10] \textbf{Scalar and vector products}
+% \noaddpoints
+%
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=.25\textwidth]{vector_scalar}
+%   \caption{Representation of the two vectors considered.}
+%   \label{fig: scalar, vector and tensors products}
+% \end{figure}
+%
+% Given an orthornomal basis ${\bm b} = ( {\bm e}_x, {\bm e}_y, {\bm e}_z)$, the points $A$ and $B$ (see figure \ref{fig: scalar, vector and tensors products}) are defined such that
+%   \begin{center}
+%     \begin{tabular}{ccc}
+%       $\| \overrightarrow{OA} \| = a$ & $\| \overrightarrow{OB} \| = b$ & with $(a, b) \in \mathbb{R}^2$
+%     \end{tabular}
+%   \end{center}
+%
+% \begin{parts}
+%   \part[2] Give the properties defining the \underline{scalar product}.
+%   \part[2] Give the properties defining the \underline{vector cross product}.
+%
+%   \bigskip
+%
+%   \part[1] Give the coordinates of vectors $\overrightarrow{OA}$ and $\overrightarrow{OB}$ in the reference frame $(O, {\bm b})$ in terms of $a$, $b$, $\alpha$ and $\beta$.
+%
+%   \part[1] Express the scalar product $\overrightarrow{OA} \cdot \overrightarrow{OB}$.
+%
+%   \part[1] Express the vector cross product $\overrightarrow{OA} \times \overrightarrow{OB}$.
+%
+%   \part[2] Express the dual skew vector ${\bm W}_a$ associated to $\overrightarrow{OA}$.
+% \end{parts}
+% \addpoints
+%
+% \bigskip
+%
+% \question[10] \textbf{Matrices, Eigenvalues and Singular values}
+% \noaddpoints
+%
+% \begin{parts}
+%   \part[5] Let us consider the matrix
+%    $${\bm A} = \begin{bmatrix} 2 & 2 & -1 \\ 1 & 3 & -1 \\ 1 & 4 & -2 \end{bmatrix}$$
+%    \begin{itemize}
+%      \item Express its characteristic polynomial as a function of its three invariants.
+%      \item Compute its eigenvalues and eigenvectors.
+%    \end{itemize}
+%
+%   \part[5] Verify that, if we compute the SVD ${\bm A} = {\bm U}{\boldsymbol \Sigma}{\bm V}^T$ of the Fibonacci matrix ${\bm A} = \displaystyle \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}$, one would obtain
+%   \begin{equation}
+%     {\boldsymbol \Sigma} = \begin{bmatrix}\displaystyle \frac{1 + \sqrt{5}}{2} & 0 \\
+%                                                         0 & \displaystyle \frac{\sqrt{5}-1}{2}
+%                                         \end{bmatrix}
+%                                         \notag
+%   \end{equation}
+% \end{parts}
+% \addpoints
+
+% \question[1] Calculate 2+2.
+% \addpoints
+%
+% \question[20] Consider the function $f(x)=3x^3+2x^2+x+1$.
+% \noaddpoints % to omit double points count
+% \begin{parts}
+% \part[10] Calculate $f'(x)$.
+% \part[10] Calculate $f''(x)$.
+% \end{parts}
+% \addpoints
+%
+% \question[2] One of these things is not like the others; one of these
+% things is not the same. Which one is different?
+% \begin{choices}
+% \choice John
+% \choice Paul
+% \choice George
+% \choice Ringo
+% \choice Socrates
+% \end{choices}
+%
+% \question[2] One of these things is not like the others; one of these
+% things is not the same. Which one is different?
+% \begin{oneparchoices}
+% \choice John
+% \choice Paul
+% \choice George
+% \choice Ringo
+% \choice Socrates
+% \end{oneparchoices}
+%
+% \question[3] Mark box if true.
+% \addpoints
+% \begin{checkboxes}
+% \choice 2+2=4
+% \choice $\frac{d}{dx} (x^2+1) = 2x+1$
+% \choice The Moon is made of cheese.
+% \end{checkboxes}
+%
+% {%
+% \checkboxchar{$\Box$} % changing checkbox style locally
+% \question[3] Mark box if true.
+% \addpoints
+% \begin{checkboxes}
+% \choice 2+2=4
+% \choice $\frac{d}{dx} (x^2+1) = 2x+1$
+% \choice The Moon is made of cheese.
+% \end{checkboxes}
+% }%
+%
+% {%
+% % changing choice items style locally
+% \renewcommand*\thechoice{\arabic{choice}}
+% \renewcommand*\choicelabel{\thechoice)}
+% %
+% \question[2] Element with $Z=92$ is:
+% \begin{multicols}{2}
+% \begin{choices}
+% \choice H
+% \choice O
+% \choice F
+% \choice S
+% \choice Ba
+% \choice Pb
+% \choice U
+% \choice Pu
+% \end{choices}
+% \end{multicols}
+% }%
+%
+% \question[10]
+% In no more than one paragraph, explain why the earth is round.
+% \makeemptybox{2in}
+%
+% \question[20]
+% Explain blah, blah\ldots
+% \makeemptybox{\fill}
+%
+% \newpage
+%
+% \question[20]
+% Explain blah, blah\ldots
+% \fillwithlines{\fill}
+%
+% \newpage
+%
+% \question[20]
+% Explain blah, blah\ldots
+% \fillwithdottedlines{8em}
+
+\end{questions}
+
+\end{document}
