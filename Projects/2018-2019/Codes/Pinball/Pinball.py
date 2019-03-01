@@ -670,6 +670,6 @@ if __name__ == "__main__":
         return omega
 
     # --> Run the (unforced) simulation.
-    output = pinball.dns(T=100, iostep=100, initial_condition='steady_state.h5', control=control)
+    output = pinball.dns(T=10, iostep=100, initial_condition='steady_state.h5', control=control)
 
     plt.show()
